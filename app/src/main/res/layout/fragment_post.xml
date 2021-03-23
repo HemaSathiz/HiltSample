@@ -13,11 +13,12 @@
             type="com.hilt.hiltsampleproject.ui.posts.PostViewModel" />
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout 
-
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.posts.PostFragment">
+    tools:context=".ui.posts.PostFragment"
+    android:background="@color/white"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
