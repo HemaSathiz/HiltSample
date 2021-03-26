@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.detailpost.DetailActivity"
+            android:label="PostDetails"
+            android:theme="@style/Theme.HiltSampleProject.ActionBar">
+        </activity>
     </application>
 
 </manifest>

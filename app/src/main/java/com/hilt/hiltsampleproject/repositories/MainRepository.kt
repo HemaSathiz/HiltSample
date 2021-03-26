@@ -1,6 +1,7 @@
 package com.hilt.hiltsampleproject.repositories
 
 import com.hilt.hiltsampleproject.database.AppDatabase
+import com.hilt.hiltsampleproject.model.CommentsItem
 import com.hilt.hiltsampleproject.model.PostDetailsItem
 import com.hilt.hiltsampleproject.network.ApiService
 import dagger.Module
@@ -16,4 +17,6 @@ class MainRepository @Inject constructor(
 ) {
     suspend fun getPostDetails() = apiHelper.getPostDetails()
     suspend fun getLocalOfflinePostDetails(posts: List<PostDetailsItem>) = database.postDao().getData(posts)
+    suspend fun getCommentDetails(postId: Int?) = apiHelper.getCommentsDetails(postId)
+    suspend fun getLocalOfflineCommentDetails(posts: List<CommentsItem>) = database.commentsDao().getData(posts)
 }

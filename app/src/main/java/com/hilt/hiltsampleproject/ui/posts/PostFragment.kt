@@ -1,5 +1,6 @@
 package com.hilt.hiltsampleproject.ui.posts
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.hilt.hiltsampleproject.R
 import com.hilt.hiltsampleproject.databinding.FragmentPostBinding
+import com.hilt.hiltsampleproject.model.PostDetailsItem
 import com.hilt.hiltsampleproject.network.Status
+import com.hilt.hiltsampleproject.ui.detailpost.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_post.*
 
 @AndroidEntryPoint
 
-class PostFragment : Fragment() {
+class PostFragment : Fragment(), PostAdapter.OnClickListener {
 
     private val postViewModel: PostViewModel by viewModels()
     private lateinit var adapter: PostAdapter
@@ -36,7 +39,7 @@ class PostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = PostAdapter()
+        adapter = PostAdapter(this)
         rvEmployees.layoutManager = LinearLayoutManager(activity)
         rvEmployees.adapter = adapter
 
@@ -63,5 +66,11 @@ class PostFragment : Fragment() {
                 }
             }
         )
+    }
+
+    override fun onClickPostListner(postDetailsItem: PostDetailsItem) {
+        var intent = Intent(activity, DetailActivity::class.java)
+        intent.putExtra("postdetails", postDetailsItem)
+        startActivity(intent)
     }
 }

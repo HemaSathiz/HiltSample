@@ -12,11 +12,11 @@ import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.android.synthetic.main.item_posts.view.*
 
 @FragmentScoped
-class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(val listner : OnClickListener) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    inner class PostViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<PostDetailsItem>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<PostDetailsItem>() {
         override fun areItemsTheSame(oldItem: PostDetailsItem, newItem: PostDetailsItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -26,7 +26,7 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
         }
     }
 
-    private val differ = AsyncListDiffer(this,diffCallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
 
     fun submitList(list: List<PostDetailsItem>) = differ.submitList(list)
 
@@ -52,8 +52,11 @@ class PostAdapter: RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
 
         holder.itemView.apply {
             tvPosts.text = "${item.body}"
-
         }
+        holder.itemView.setOnClickListener { listner.onClickPostListner(item) }
+    }
 
+    interface OnClickListener {
+        fun onClickPostListner(postDetailsItem: PostDetailsItem)
     }
 }
